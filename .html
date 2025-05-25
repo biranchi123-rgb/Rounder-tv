@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rounder TV</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #1c237e;
+      color: white;
+      scroll-behavior: smooth;
+    }
+    header {
+      padding: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      height: 45px;
+    }
+    .menu-icon {
+      width: 30px;
+      height: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .menu-icon span {
+      display: block;
+      height: 4px;
+      background-color: white;
+      border-radius: 2px;
+    }
+    .dropdown {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background-color: #1c237e;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 10;
+    }
+    .dropdown a {
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-bottom: 1px solid #2c368e;
+    }
+    .dropdown a:hover {
+      background-color: #2c368e;
+    }
+
+    .divider {
+      height: 2px;
+      background-color: white;
+      margin: 10px 0 20px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      animation: slideDown 1s ease-out;
+    }
+    p {
+      font-size: 16px;
+      animation: slideUp 1.2s ease-out;
+    }
+    .download-button {
+      background: white;
+      color: black;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 40px;
+      font-weight: bold;
+    }
+
+    .mobile-shell {
+      width: 320px;
+      height: 180px;
+      border: 10px solid #fff;
+      border-radius: 30px;
+      margin: 20px auto;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .mobile-shell img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 20px;
+    }
+
+    .apk-box {
+      background-color: #1c237e;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    table {
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      border-collapse: collapse;
+      color: white;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+
+    .white-button {
+      background: white;
+      color: black;
+      padding: 12px 25px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .features-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 0 15px;
+    }
+
+    .feature-box {
+      border: 1px solid white;
+      border-radius: 8px;
+      padding: 15px;
+      width: calc(50% - 20px);
+      min-width: 250px;
+      background-color: transparent;
+      animation: fadeInScale 1s ease-in-out;
+    }
+
+    .feature-box h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: white;
+    }
+
+    .feature-box p {
+      margin: 0;
+      font-size: 14px;
+      color: white;
+    }
+
+    .footer {
+      margin: 40px 0 20px;
+      text-align: center;
+    }
+
+    .footer a {
+      color: white;
+      margin: 0 10px;
+      font-size: 20px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes fadeInScale {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .hidden {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <img class="logo" src="https://i.postimg.cc/yNf0gR73/IMG-20250301-215408-623.jpg" alt="Rounder TV Logo">
+      <div class="menu-icon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="dropdown" id="dropdown">
+      <a href="#">Home</a>
+      <a href="https://t.me/RounderTv">Telegram</a>
+      <a href="mailto:roundertvindia@gmail.com">Mail</a>
+    </div>
+    <div class="divider"></div>
+    <h1>Rounder TV - Watch Live Channels and Movies Online</h1>
+    <p>
+      Rounder TV Apk v1.2 - Movies / TV Shows / Live Channels. Easily and Smooth stream & live TV channels.
+      Enjoy online films and exclusive web series & tv Channels on the Rounder TV App.
+    </p>
+    <a class="download-button" href="#main-download" onclick="scrollToDownload()">DOWNLOAD Rounder TV</a>
+  </header>
+
+  <div class="section-title">Rounder TV Interface</div>
+  <div class="mobile-shell"><img src="https://i.postimg.cc/pVzFf4ZB/20250424-234420.png" alt="Mobile Screen 1"></div>
+  <div class="mobile-shell"><img src="https://i.postimg.cc/pXQVcZNz/20250424-234403.png" alt="Mobile Screen 2"></div>
+
+  <div class="section-title">Key Features</div>
+  <div class="features-container">
+    <div class="feature-box hidden"><h3>Simple UI</h3><p>Dark interface with featured categories and easy search option for channels.</p></div>
+    <div class="feature-box hidden"><h3>NO ADS</h3><p>Enjoy a completely ads-free experience. No interruption while streaming.</p></div>
+    <div class="feature-box hidden"><h3>LIVE CHANNELS</h3><p>Stay updated with live news and never miss your serials.</p></div>
+    <div class="feature-box hidden"><h3>MULTI LANGUAGE</h3><p>Watch TV in multiple languages with categorized content.</p></div>
+    <div class="feature-box hidden"><h3>Secure App</h3><p>Rounder TV doesn’t ask for any permission, ensuring your privacy.</p></div>
+  </div>
+
+  <div class="apk-box" id="main-download">
+    <h2>Download Rounder TV APK</h2>
+    <table>
+      <tr><th>Feature</th><th>Details</th></tr>
+      <tr><td>App Name</td><td>Rounder TV</td></tr>
+      <tr><td>Version</td><td>1.2</td></tr>
+      <tr><td>Size</td><td>30.3 MB</td></tr>
+      <tr><td>Developer</td><td>V.V</td></tr>
+      <tr><td>Downloads</td><td>1,000+</td></tr>
+      <tr><td>Last Updated</td><td>26 April, 2025</td></tr>
+      <tr><td>Category</td><td>Entertainment</td></tr>
+      <tr><td>Compatibility</td><td>Android 7 and more</td></tr>
+    </table>
+    <a class="white-button" href="https://dl.dropboxusercontent.com/scl/fi/iqgswdesjghlfeag25bg0/Rounder-TV-v1.2.apk?rlkey=wm7vhc74tc3km5gf71qdn1ban&st=bzhqlleo">Download Rounder TV</a>
+  </div>
+
+  <div class="footer">
+    <a href="https://t.me/RounderTv" target="_blank"><i class="fab fa-telegram"></i></a>
+    <a href="mailto:roundertvindia@gmail.com"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <script>
+    const dropdown = document.getElementById('dropdown');
+    function toggleMenu() {
+      dropdown.style.display = dropdown.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function scrollToDownload() {
+      const section = document.getElementById('main-download');
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    });
+
+    document.querySelectorAll('.feature-box').forEach(box => {
+      observer.observe(box);
+    });
+  </script>
+</body>
+  </html>
